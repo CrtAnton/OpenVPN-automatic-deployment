@@ -1,0 +1,7 @@
+Keys
+**/.terraform/
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+TO DO   
+master-script.sh
