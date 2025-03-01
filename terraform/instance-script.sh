@@ -23,15 +23,7 @@ sudo -u ubuntu bash -c "
 source /etc/openvpn/config.env
 make-cadir ~/easy-rsa-root && cd ~/easy-rsa-root
 ./easyrsa init-pki
-
-# Check if we should skip the passphrase
-if [ \"\$SKIP_ROOT_PASSPHRASE\" = \"true\" ]; then
-    echo 'Skipping passphrase for Root CA...'
-    echo -e \"\n\n\" | ~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" nopass
-else
-    echo 'Using passphrase for Root CA...'
-    ~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" \"\$ROOT_PASSPHRASE\"
-fi
+~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" \"\$ROOT_PASSPHRASE\"
 "
 
 echo "OpenVPN setup complete!"
