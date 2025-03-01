@@ -1,5 +1,37 @@
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install openvpn easy-rsa expect -y
-mkdir works
+sudo apt install -y openvpn easy-rsa expect git
+
+sudo -u ubuntu bash -c "
+cd ~
+git clone https://github.com/CrtAnton/OpenVPN-automatic-deployment.git
+chmod +x ~/OpenVPN-automatic-deployment/scripts/*
+"
+
+echo "EXPORTING ENV VARIABLES..."
+cat <<EOF | sudo tee /etc/openvpn/config.env
+export ROOT_PASSPHRASE="${Root_Passphrase}"
+export ROOT_CA_NAME="${Root_CA_Name}"
+EOF
+
+sudo chmod 644 /etc/openvpn/config.env
+sudo chown ubuntu:ubuntu /etc/openvpn/config.env
+source /etc/openvpn/config.env
+
+sudo -u ubuntu bash -c "
+source /etc/openvpn/config.env
+make-cadir ~/easy-rsa-root && cd ~/easy-rsa-root
+./easyrsa init-pki
+
+# Check if we should skip the passphrase
+if [ \"\$SKIP_ROOT_PASSPHRASE\" = \"true\" ]; then
+    echo 'Skipping passphrase for Root CA...'
+    echo -e \"\n\n\" | ~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" nopass
+else
+    echo 'Using passphrase for Root CA...'
+    ~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" \"\$ROOT_PASSPHRASE\"
+fi
+"
+
+echo "OpenVPN setup complete!"

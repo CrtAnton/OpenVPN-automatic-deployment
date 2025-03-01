@@ -8,3 +8,13 @@ variable "default-profile" {
   type = string
   default = "default"
 }
+variable "Root_Passphrase" {
+  type = string
+  default = ""
+}
+
+variable "Root_CA_Name" {
+  type = string
+  default = ""
+}
+
