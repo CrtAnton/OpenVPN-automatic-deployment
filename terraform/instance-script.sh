@@ -17,13 +17,12 @@ EOF
 
 sudo chmod 644 /etc/openvpn/config.env
 sudo chown ubuntu:ubuntu /etc/openvpn/config.env
-source /etc/openvpn/config.env
+echo "source /etc/openvpn/config.env" | sudo tee -a /home/ubuntu/.bashrc
 
 sudo -u ubuntu bash -c "
 source /etc/openvpn/config.env
+cd ~
 make-cadir ~/easy-rsa-root && cd ~/easy-rsa-root
 ./easyrsa init-pki
 ~/OpenVPN-automatic-deployment/scripts/create-ca.sh \"\$ROOT_CA_NAME\" \"\$ROOT_PASSPHRASE\"
 "
-
-echo "OpenVPN setup complete!"
