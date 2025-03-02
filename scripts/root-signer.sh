@@ -8,6 +8,7 @@ if { $argc < 1 } {
 
 set ca_passphrase [lindex $argv 0]
 
+cd ~/easy-rsa-root
 spawn ./easyrsa sign-req ca intermediate
 
 expect {

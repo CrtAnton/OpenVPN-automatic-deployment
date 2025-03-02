@@ -13,7 +13,9 @@ fn_instructions() {
 fn_run_terraform() {
     cd terraform && terraform apply -auto-approve \
     -var="Root_Passphrase=$root_passphrase" \
-    -var="Root_CA_Name=$root_ca_name"
+    -var="Root_CA_Name=$root_ca_name" \
+    -var="Intermediate_Passphrase=$intermediate_passphrase" \
+    -var="Intermediate_CA_Name=$intermediate_ca_name"
 }
 
 fn_destroy_terraform() {
@@ -23,6 +25,8 @@ fn_destroy_terraform() {
 #Variables
 root_passphrase="passphrase_12345"
 root_ca_name="Root-CA"
+intermediate_passphrase="passphrase_12345"
+intermediate_ca_name="Intermediate-CA"
 
 #Logic
 if [[ $# -eq 0 ]]; then
@@ -38,8 +42,10 @@ while getopts ":edg" option; do
         ;;
     g)
         echo "Starting in guided mode"    
-        read -p "Enter a passphrase for root ca: " root_passphrase
+        read -p "Enter a passphrase for root ca (min 4 chars): " root_passphrase
         read -p "Enter root ca name: " root_ca_name
+        read -p "Enter a passphrase for intermediate ca (min 4 chars): " intermediate_passphrase
+        read -p "Enter intermediate ca name: " intermediate_ca_name
         fn_run_terraform
         exit 0
         ;;

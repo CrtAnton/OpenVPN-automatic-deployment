@@ -48,7 +48,9 @@ resource "aws_instance" "openvpn-server" {
     Name = "openvpn-server"
   }
   user_data = templatefile("${path.module}/instance-script.sh", {
-  Root_Passphrase = var.Root_Passphrase
-  Root_CA_Name = var.Root_CA_Name
+  Root_Passphrase         = var.Root_Passphrase
+  Root_CA_Name            = var.Root_CA_Name
+  Intermediate_Passphrase = var.Intermediate_Passphrase
+  Intermediate_CA_Name    = var.Intermediate_CA_Name
 })
 }
