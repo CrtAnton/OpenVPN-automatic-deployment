@@ -9,6 +9,7 @@ if { $argc < 2 } {
 set inter_passphrase [lindex $argv 0]
 set inter_common_name [lindex $argv 1]
 
+cd ~/easy-rsa-intermediate
 spawn ./easyrsa gen-req intermediate
 
 expect "Enter PEM pass phrase:"

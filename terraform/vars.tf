@@ -18,3 +18,12 @@ variable "Root_CA_Name" {
   default = ""
 }
 
+variable "Intermediate_Passphrase" {
+  type = string
+  default = ""
+}
+
+variable "Intermediate_CA_Name" {
+  type = string
+  default = ""
+}
