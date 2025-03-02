@@ -5,9 +5,12 @@ sudo apt install -y openvpn easy-rsa expect git
 
 sudo -u ubuntu bash -c "
 cd ~
-git clone https://github.com/CrtAnton/OpenVPN-automatic-deployment.git
+git clone -b develop --single-branch https://github.com/CrtAnton/OpenVPN-automatic-deployment.git
+cd ~/OpenVPN-automatic-deployment
+git pull origin develop
 chmod +x ~/OpenVPN-automatic-deployment/scripts/*
 "
+
 
 echo "EXPORTING ENV VARIABLES..."
 cat <<EOF | sudo tee /etc/openvpn/config.env

@@ -1,4 +1,4 @@
-!/usr/bin/expect -f
+#!/usr/bin/expect -f
 set timeout -1
 
 if { $argc < 2 } {
@@ -9,6 +9,7 @@ if { $argc < 2 } {
 set ca_passphrase [lindex $argv 0]
 set ca_common_name [lindex $argv 1]
 
+cd ~/esy-rsa-root
 spawn ./easyrsa build-ca
 
 expect "Enter New CA Key Passphrase:"
