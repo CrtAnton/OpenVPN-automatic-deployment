@@ -21,8 +21,8 @@ fn_destroy_terraform() {
 }
 
 #Variables
-root_passphrase=""
-root_ca_name="Root-CA-Test"
+root_passphrase="passphrase_12345"
+root_ca_name="Root-CA"
 
 #Logic
 if [[ $# -eq 0 ]]; then
