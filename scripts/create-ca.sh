@@ -9,7 +9,7 @@ if { $argc < 2 } {
 set ca_passphrase [lindex $argv 0]
 set ca_common_name [lindex $argv 1]
 
-cd ~/esy-rsa-root
+cd ~/easy-rsa-root
 spawn ./easyrsa build-ca
 
 expect "Enter New CA Key Passphrase:"
